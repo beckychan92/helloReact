@@ -1,50 +1,8 @@
-var GreeterMessage = React.createClass({
-    render: function () {
-        var name = this.props.name;
-        var message = this.props.message;
-        return (
-            <div>
-                <h1>HellofromMesssage {name}</h1>
-                <p>this is message: {message}</p>
-                <form onSubmit={this.onFormSubmit}>
-                </form>
-            </div>
+var React = require('react');
+var ReactDOM = require('react-dom');
+var GreeterMessage = require('./components/GreeterMessage.jsx');
+var GreeterForm = require('./components/GreeterForm.jsx');
 
-        );
-    }
-});
-
-var GreeterForm = React.createClass({
-    onFormSubmit: function (e) {
-        e.preventDefault();
-        var updates = {}; 
-        var name = this.refs.name.value;
-        var message = this.refs.message.value;
-
-
-        if (name.length > 0) {
-            this.refs.name.value = '';
-            updates.name = name; 
-        }
-
-        if (message.length > 0) {
-            this.refs.message.value = '';
-            updates.message = message; 
-        }
-
-
-        this.props.onNewName(updates);
-    },
-    render: function () {
-        return (
-            <form onSubmit={this.onFormSubmit}>
-                <input type="text" ref="name" placeholder="Name"/>
-                <textarea ref="message" placeholder="Enter Message"></textarea>
-                <button>Submit</button>
-            </form>
-        )
-    }
-})
 
 var Greeter = React.createClass({
     getDefaultProps: function () {
@@ -61,7 +19,7 @@ var Greeter = React.createClass({
         }
     },
 
-    handleState: function(updates) {
+    handleNewData: function(updates) {
         this.setState(updates);
     },
 
@@ -71,7 +29,7 @@ var Greeter = React.createClass({
         return (
             <div>
                 <GreeterMessage name={name} message={message}/>
-                <GreeterForm onNewName={this.handleState}/>
+                <GreeterForm onNewData={this.handleNewData}/>
             </div>
         )
     }
